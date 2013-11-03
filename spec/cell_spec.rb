@@ -1,8 +1,7 @@
-require 'rspec'
-require_relative '../game'
+require 'spec_helper'
 
-describe Cell do
-  let(:cell) { Cell.new }
+describe RubyLife::Cell do
+  let(:cell) { RubyLife::Cell.new }
 
   it 'can live and die' do
     cell.live!
@@ -12,7 +11,7 @@ describe Cell do
   end
 
   it 'takes an optional status' do
-    dead_cell = Cell.new(:dead)
+    dead_cell = RubyLife::Cell.new(:dead)
     expect(dead_cell.alive?).to be_false
   end
 end
