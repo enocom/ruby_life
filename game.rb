@@ -38,10 +38,6 @@ class Grid
     end
   end
 
-  def cell_count
-    @storage.length * @storage.first.length
-  end
-
   def get_neighbors_from_index(index)
     indices_to_retrieve = []
     indices_to_retrieve << (index - 1) unless beginning_of_row?(index)
