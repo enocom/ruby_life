@@ -47,16 +47,16 @@ class Grid
     cells << @storage[index - 1] unless beginning_of_row?(index)
     cells << @storage[index + 1] unless end_of_row?(index)
 
-    unless index < size
+    unless first_row?(index)
       cells << @storage[above(index - 1)] unless beginning_of_row?(index)
-      cells << @storage[above(index)]
       cells << @storage[above(index + 1)] unless end_of_row?(index)
+      cells << @storage[above(index)]
     end
 
     unless last_row?(index)
       cells << @storage[below(index) - 1] unless beginning_of_row?(index)
-      cells << @storage[below(index)]
       cells << @storage[below(index) + 1] unless end_of_row?(index)
+      cells << @storage[below(index)]
     end
 
     cells
@@ -92,6 +92,10 @@ class Grid
 
   def end_of_row?(index)
     (index + 1) % size == 0
+  end
+
+  def first_row?(index)
+    index < size
   end
 
   def last_row?(index)
