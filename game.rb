@@ -121,11 +121,11 @@ class Grid
   end
 
   def above(index)
-    index - 3
+    index - size
   end
 
   def below(index)
-    index + 3
+    index + size
   end
 end
 
