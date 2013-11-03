@@ -9,6 +9,10 @@ class Cell
     @status == :alive
   end
 
+  def dead?
+    @status == :dead
+  end
+
   def die!
     @status = :dead
   end
@@ -68,7 +72,12 @@ class Grid
     @storage.each_with_index do |cell, index|
       neighbors = get_neighbors_from_index(index)
       living_neighbor_count = neighbors.select(&:alive?).count
+
       if cell.alive? && [2, 3].include?(living_neighbor_count)
+        next_generation[index] = :alive
+      elsif cell.alive? && living_neighbor_count == 4
+        next_generation[index] = :dead
+      elsif cell.dead? && living_neighbor_count == 3
         next_generation[index] = :alive
       else
         next_generation[index] = :dead
