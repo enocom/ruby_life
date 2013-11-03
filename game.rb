@@ -62,6 +62,14 @@ class Grid
     @storage[x + (y * size)]
   end
 
+  def generate!
+    @storage.each(&:die!)
+  end
+
+  def state
+    @storage.map(&:status)
+  end
+
   def to_s
     grid_string = ""
 
@@ -71,14 +79,6 @@ class Grid
     end
 
     grid_string
-  end
-
-  def generate!
-    @storage.each(&:die!)
-  end
-
-  def state
-    @storage.map(&:status)
   end
 
   private
