@@ -85,11 +85,7 @@ class Grid
     end
 
     next_generation.each do |index, status|
-      if status == :alive
-        @storage[index].live!
-      else
-        @storage[index].die!
-      end
+      status == :alive ? @storage[index].live! : @storage[index].die!
     end
   end
 
