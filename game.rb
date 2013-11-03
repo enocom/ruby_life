@@ -43,23 +43,23 @@ class Grid
   end
 
   def get_neighbors_from_index(index)
-    cells = []
-    cells << @storage[index - 1] unless beginning_of_row?(index)
-    cells << @storage[index + 1] unless end_of_row?(index)
+    indices_to_retrieve = []
+    indices_to_retrieve << (index - 1) unless beginning_of_row?(index)
+    indices_to_retrieve << (index + 1) unless end_of_row?(index)
 
     unless first_row?(index)
-      cells << @storage[above(index - 1)] unless beginning_of_row?(index)
-      cells << @storage[above(index + 1)] unless end_of_row?(index)
-      cells << @storage[above(index)]
+      indices_to_retrieve << (above(index - 1)) unless beginning_of_row?(index)
+      indices_to_retrieve << (above(index + 1)) unless end_of_row?(index)
+      indices_to_retrieve << (above(index))
     end
 
     unless last_row?(index)
-      cells << @storage[below(index) - 1] unless beginning_of_row?(index)
-      cells << @storage[below(index) + 1] unless end_of_row?(index)
-      cells << @storage[below(index)]
+      indices_to_retrieve << (below(index) - 1) unless beginning_of_row?(index)
+      indices_to_retrieve << (below(index) + 1) unless end_of_row?(index)
+      indices_to_retrieve << (below(index))
     end
 
-    cells
+    indices_to_retrieve.map { |i| @storage[i] }
   end
 
   def [](x, y)
