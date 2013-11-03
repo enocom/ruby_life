@@ -43,11 +43,23 @@ class Grid
   end
 
   def get_neighbors_from_index(index)
-    neighbors = []
-    neighbors << cells_to_left_and_right(index)
-    neighbors << cells_above(index)
-    neighbors << cells_below(index)
-    neighbors.flatten
+    cells = []
+    cells << @storage[index - 1] unless beginning_of_row?(index)
+    cells << @storage[index + 1] unless end_of_row?(index)
+
+    unless index < size
+      cells << @storage[above(index - 1)] unless beginning_of_row?(index)
+      cells << @storage[above(index)]
+      cells << @storage[above(index + 1)] unless end_of_row?(index)
+    end
+
+    unless last_row?(index)
+      cells << @storage[below(index) - 1] unless beginning_of_row?(index)
+      cells << @storage[below(index)]
+      cells << @storage[below(index) + 1] unless end_of_row?(index)
+    end
+
+    cells
   end
 
   def [](x, y)
@@ -88,33 +100,6 @@ class Grid
 
   def size_matches_state?(size, state)
     (size * size) == state.length
-  end
-
-  def cells_to_left_and_right(index)
-    cells = []
-    cells << @storage[index - 1] unless beginning_of_row?(index)
-    cells << @storage[index + 1] unless end_of_row?(index)
-    cells
-  end
-
-  def cells_above(index)
-    cells = []
-    return cells if index < size
-
-    cells << @storage[above(index - 1)] unless beginning_of_row?(index)
-    cells << @storage[above(index)]
-    cells << @storage[above(index + 1)] unless end_of_row?(index)
-    cells
-  end
-
-  def cells_below(index)
-    cells = []
-    return cells if last_row?(index)
-
-    cells << @storage[below(index) - 1] unless beginning_of_row?(index)
-    cells << @storage[below(index)]
-    cells << @storage[below(index) + 1] unless end_of_row?(index)
-    cells
   end
 
   def above(index)
