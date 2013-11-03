@@ -19,7 +19,10 @@ end
 
 describe Grid do
   let(:grid) { Grid.new(3) }
-  let(:max_size) { grid.size - 1 }
+
+  it 'accepts a dimension as an argument' do
+    expect(grid.state.length).to eq 9
+  end
 
   it 'can retrieve cells from the grid' do
     grid = Grid.new(3, state: [:dead, :dead, :dead,
@@ -58,24 +61,21 @@ describe Grid do
 
   context 'retrieving neighboring cells' do
     it 'finds neighbors of cells away from edges' do
-      x = 1
-      y = 1
-
-      expect(grid.get_neighbors(x, y).size).to eq 8
+      expect(grid.get_neighbors_from_index(4).size).to eq 8
     end
 
     it 'finds neighbors of the corner cells' do
-      expect(grid.get_neighbors(0, 0).size).to eq 3
-      expect(grid.get_neighbors(max_size, max_size).size).to eq 3
-      expect(grid.get_neighbors(max_size, 0).size).to eq 3
-      expect(grid.get_neighbors(0, max_size).size).to eq 3
+      expect(grid.get_neighbors_from_index(0).size).to eq 3
+      expect(grid.get_neighbors_from_index(2).size).to eq 3
+      expect(grid.get_neighbors_from_index(6).size).to eq 3
+      expect(grid.get_neighbors_from_index(8).size).to eq 3
     end
 
     it 'finds neighbors of the edge cells' do
-      expect(grid.get_neighbors(0, 1).size).to eq 5
-      expect(grid.get_neighbors(max_size, 1).size).to eq 5
-      expect(grid.get_neighbors(1, 0).size).to eq 5
-      expect(grid.get_neighbors(1, max_size).size).to eq 5
+      expect(grid.get_neighbors_from_index(1).size).to eq 5
+      expect(grid.get_neighbors_from_index(3).size).to eq 5
+      expect(grid.get_neighbors_from_index(5).size).to eq 5
+      expect(grid.get_neighbors_from_index(7).size).to eq 5
     end
   end
 
@@ -99,7 +99,7 @@ describe Grid do
                                 :dead, :dead, :dead]
     end
 
-    specify 'any live cell with two or three live neighbors lives' do
+    xspecify 'any live cell with two or three live neighbors lives' do
       grid = Grid.new(3, state: [:dead,  :dead,  :dead,
                                  :alive, :alive, :alive,
                                  :dead,  :dead,  :dead])

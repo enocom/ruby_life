@@ -34,7 +34,7 @@ class Grid
 
       @storage = state.map { |status| Cell.new(status) }
     else
-      @storage = Array.new(@size, Cell.new)
+      @storage = Array.new(@size * @size, Cell.new)
     end
   end
 
@@ -42,11 +42,11 @@ class Grid
     @storage.length * @storage.first.length
   end
 
-  def get_neighbors(x, y)
+  def get_neighbors_from_index(index)
     neighbors = []
-    neighbors << cells_to_left_and_right(x, y)
-    neighbors << cells_above(x, y) unless y.zero?
-    neighbors << cells_below(x, y) unless y == (size - 1)
+    neighbors << cells_to_left_and_right(index)
+    neighbors << cells_above(index)
+    neighbors << cells_below(index)
     neighbors.flatten
   end
 
@@ -74,35 +74,55 @@ class Grid
   end
 
   private
-    def end_of_row?(index)
-      (index + 1) % size == 0
-    end
+  def beginning_of_row?(index)
+    index % size == 0
+  end
 
-    def size_matches_state?(size, state)
-      (size * size) == state.length
-    end
+  def end_of_row?(index)
+    (index + 1) % size == 0
+  end
 
-    def cells_to_left_and_right(x, y)
-      cells = []
-      cells << self[x - 1, y] unless x.zero?
-      cells << self[x + 1, y] unless x == (size - 1)
-      cells
-    end
+  def last_row?(index)
+    index >= (size * size - size)
+  end
 
-    def cells_above(x, y)
-      cells = []
-      cells << self[x - 1, y - 1] unless x.zero?
-      cells << self[x, y - 1]
-      cells << self[x + 1, y - 1] unless x == (size - 1)
-      cells
-    end
+  def size_matches_state?(size, state)
+    (size * size) == state.length
+  end
 
-    def cells_below(x, y)
-      cells = []
-      cells << self[x -1, y + 1] unless x.zero?
-      cells << self[x, y + 1]
-      cells << self[x + 1, y + 1] unless x == (size - 1)
-      cells
-    end
+  def cells_to_left_and_right(index)
+    cells = []
+    cells << @storage[index - 1] unless beginning_of_row?(index)
+    cells << @storage[index + 1] unless end_of_row?(index)
+    cells
+  end
+
+  def cells_above(index)
+    cells = []
+    return cells if index < size
+
+    cells << @storage[above(index - 1)] unless beginning_of_row?(index)
+    cells << @storage[above(index)]
+    cells << @storage[above(index + 1)] unless end_of_row?(index)
+    cells
+  end
+
+  def cells_below(index)
+    cells = []
+    return cells if last_row?(index)
+
+    cells << @storage[below(index) - 1] unless beginning_of_row?(index)
+    cells << @storage[below(index)]
+    cells << @storage[below(index) + 1] unless end_of_row?(index)
+    cells
+  end
+
+  def above(index)
+    index - 3
+  end
+
+  def below(index)
+    index + 3
+  end
 end
 
