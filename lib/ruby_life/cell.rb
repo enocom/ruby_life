@@ -3,7 +3,7 @@ module RubyLife
     attr_reader :status
 
     def initialize(status = nil)
-      @status = status ? status : [:alive, :dead].sample
+      @status = status || [:alive, :dead].sample
     end
 
     def alive?
