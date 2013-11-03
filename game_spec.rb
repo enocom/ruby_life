@@ -89,49 +89,66 @@ describe Grid do
 
   context 'rule 1: any live cell with fewer than two live neighbors dies' do
     specify 'a sole survivor dies' do
-      grid = Grid.new(3, state: [:dead, :dead,  :dead,
-                                 :dead, :alive, :dead,
-                                 :dead, :dead,  :dead])
+      grid = Grid.new(2, state: [:dead, :dead,
+                                 :dead, :alive])
       grid.generate!
 
-      expect(grid.state).to eq [:dead, :dead, :dead,
-                                :dead, :dead, :dead,
-                                :dead, :dead, :dead]
+      expect(grid.state).to eq [:dead, :dead,
+                                :dead, :dead]
     end
 
     specify 'two sole survivors die' do
-      grid = Grid.new(3, state: [:dead,  :dead,  :dead,
-                                 :alive, :alive, :dead,
-                                 :dead,  :dead,  :dead])
+      grid = Grid.new(2, state: [:dead,  :dead,
+                                 :alive, :alive])
       grid.generate!
 
-      expect(grid.state).to eq [:dead, :dead, :dead,
-                                :dead, :dead, :dead,
-                                :dead, :dead, :dead]
+      expect(grid.state).to eq [:dead, :dead,
+                                :dead, :dead]
     end
   end
 
   context 'rule 2: any live cell with two or three live neighbors lives' do
     specify 'any live cell with two live neighbors lives' do
-      grid = Grid.new(3, state: [:dead,  :dead,  :dead,
+      grid = Grid.new(2, state: [:dead,  :alive,
+                                 :alive, :alive])
+      grid.generate!
+
+      expect(grid.state).to eq [:alive, :alive,
+                                :alive, :alive]
+    end
+
+    specify 'any live cell with three live neighbors lives' do
+      grid = Grid.new(2, state: [:alive, :alive,
+                                 :alive, :alive])
+      grid.generate!
+
+      expect(grid.state).to eq [:alive,  :alive,
+                                :alive,  :alive]
+    end
+  end
+
+  context 'rule 3: a live cell dies with more than three live neighbors' do
+    specify 'a cell dies with four live neighbors' do
+      grid = Grid.new(3, state: [:alive, :alive, :dead,
                                  :alive, :alive, :alive,
                                  :dead,  :dead,  :dead])
       grid.generate!
 
-      expect(grid.state).to eq [:dead, :dead,  :dead,
-                                :dead, :alive, :dead,
-                                :dead, :dead,  :dead]
+      expect(grid.state).to eq [:alive, :dead,  :alive,
+                                :alive, :dead,  :alive,
+                                :dead,  :alive, :dead]
     end
+  end
 
-    specify 'any live cell with three live neighbors lives' do
-      grid = Grid.new(3, state: [:dead,  :alive,  :dead,
-                                 :alive, :alive,  :alive,
-                                 :dead,  :dead,   :dead])
+  context 'rule 4: a dead cell with extactly three live neighbors lives' do
+    specify 'a dead cell lives with three live neighbors' do
+      grid = Grid.new(2, state: [:dead,  :alive,
+                                 :alive, :alive])
+
       grid.generate!
 
-      expect(grid.state).to eq [:dead,  :alive,  :dead,
-                                :alive, :alive,  :alive,
-                                :dead,  :dead,   :dead]
+      expect(grid.state).to eq [:alive, :alive,
+                                :alive, :alive]
     end
   end
 end
