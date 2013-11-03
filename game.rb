@@ -63,7 +63,25 @@ class Grid
   end
 
   def generate!
-    @storage.each(&:die!)
+    next_generation = {}
+
+    @storage.each_with_index do |cell, index|
+      neighbors = get_neighbors_from_index(index)
+      living_neighbor_count = neighbors.select(&:alive?).count
+      if cell.alive? && [2, 3].include?(living_neighbor_count)
+        next_generation[index] = :alive
+      else
+        next_generation[index] = :dead
+      end
+    end
+
+    next_generation.each do |index, status|
+      if status == :alive
+        @storage[index].live!
+      else
+        @storage[index].die!
+      end
+    end
   end
 
   def state
