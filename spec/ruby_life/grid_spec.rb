@@ -9,18 +9,18 @@ describe RubyLife::Grid do
 
   it 'can retrieve cells from the grid' do
     grid = RubyLife::Grid.new(3, state: [:dead, :dead, :dead,
-                               :dead, :alive, :dead,
-                               :dead, :dead, :dead])
+                                         :dead, :alive, :dead,
+                                         :dead, :dead, :dead])
     expect(grid[1,1].alive?).to be_true
 
     grid = RubyLife::Grid.new(3, state: [:dead, :alive, :dead,
-                               :dead, :dead, :dead,
-                               :dead, :dead, :dead])
+                                         :dead, :dead, :dead,
+                                         :dead, :dead, :dead])
     expect(grid[1,0].alive?).to be_true
 
     grid = RubyLife::Grid.new(3, state: [:dead, :dead, :dead,
-                               :dead, :dead, :dead,
-                               :dead, :alive, :dead])
+                                         :dead, :dead, :dead,
+                                         :dead, :alive, :dead])
     expect(grid[1,2].alive?).to be_true
   end
 
@@ -73,7 +73,7 @@ describe RubyLife::Grid do
   context 'rule 1: any live cell with fewer than two live neighbors dies' do
     specify 'a sole survivor dies' do
       grid = RubyLife::Grid.new(2, state: [:dead, :dead,
-                                 :dead, :alive])
+                                           :dead, :alive])
       grid.generate!
 
       expect(grid.state).to eq [:dead, :dead,
@@ -82,7 +82,7 @@ describe RubyLife::Grid do
 
     specify 'two sole survivors die' do
       grid = RubyLife::Grid.new(2, state: [:dead,  :dead,
-                                 :alive, :alive])
+                                           :alive, :alive])
       grid.generate!
 
       expect(grid.state).to eq [:dead, :dead,
@@ -93,7 +93,7 @@ describe RubyLife::Grid do
   context 'rule 2: any live cell with two or three live neighbors lives' do
     specify 'any live cell with two live neighbors lives' do
       grid = RubyLife::Grid.new(2, state: [:dead,  :alive,
-                                 :alive, :alive])
+                                           :alive, :alive])
       grid.generate!
 
       expect(grid.state).to eq [:alive, :alive,
@@ -102,7 +102,7 @@ describe RubyLife::Grid do
 
     specify 'any live cell with three live neighbors lives' do
       grid = RubyLife::Grid.new(2, state: [:alive, :alive,
-                                 :alive, :alive])
+                                           :alive, :alive])
       grid.generate!
 
       expect(grid.state).to eq [:alive,  :alive,
@@ -113,8 +113,8 @@ describe RubyLife::Grid do
   context 'rule 3: a live cell dies with more than three live neighbors' do
     specify 'a cell dies with four live neighbors' do
       grid = RubyLife::Grid.new(3, state: [:alive, :alive, :dead,
-                                 :alive, :alive, :alive,
-                                 :dead,  :dead,  :dead])
+                                           :alive, :alive, :alive,
+                                           :dead,  :dead,  :dead])
       grid.generate!
 
       expect(grid.state).to eq [:alive, :dead,  :alive,
@@ -126,7 +126,7 @@ describe RubyLife::Grid do
   context 'rule 4: a dead cell with extactly three live neighbors lives' do
     specify 'a dead cell lives with three live neighbors' do
       grid = RubyLife::Grid.new(2, state: [:dead,  :alive,
-                                 :alive, :alive])
+                                           :alive, :alive])
 
       grid.generate!
 
