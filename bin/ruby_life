@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require 'ruby_life'
+RubyLife::Game.new.run
+
