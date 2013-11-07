@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Eno Compton 4"]
   spec.email         = ["eno4@ecom.com"]
   spec.description   = %q{A command line version of Conway's Game of Life}
-  spec.summary       = %q{Observe cells as they live and die on the command line.}
+  spec.summary       = %q{Observe cells as they live and die on the CLI.}
   spec.homepage      = "http://github.com/enocom/ruby_life"
   spec.license       = "MIT"
 
