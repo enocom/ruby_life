@@ -7,6 +7,7 @@ Usage
 =====
 
 1) Install with `gem install ruby_life`
+
 2) Run it with `ruby_life`
 
 The Rules
