@@ -3,6 +3,12 @@ Ruby Life
 
 A test-driven implementation of Conway's Game of Life in Ruby.
 
+Usage
+=====
+
+1) Install with `gem install ruby_life`
+2) Run it with `ruby_life`
+
 The Rules
 =========
 
