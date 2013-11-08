@@ -1,5 +1,3 @@
-require 'pry'
-
 module RubyLife
   class Game
     def initialize
