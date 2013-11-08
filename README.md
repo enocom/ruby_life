@@ -1,6 +1,8 @@
 Ruby Life
 =========
 
+[![Gem Version](https://badge.fury.io/rb/ruby_life.png)](http://badge.fury.io/rb/ruby_life)
+
 A test-driven implementation of Conway's Game of Life in Ruby.
 
 Usage
