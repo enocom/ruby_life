@@ -1,16 +1,21 @@
+require 'pry'
+
 module RubyLife
   class Game
     def initialize
-      @grid = Grid.new(3)
+      @grid = Grid.new(40)
     end
 
     def run
       clear_screen
 
+      i = 0
       loop do
+        puts "generation #{i}"
         puts @grid
-        animate_transition
         @grid.generate!
+        animate_transition
+        i += 1
       end
     end
 
