@@ -2,6 +2,7 @@ Ruby Life
 =========
 
 [![Gem Version](https://badge.fury.io/rb/ruby_life.png)](http://badge.fury.io/rb/ruby_life)
+
 [![Build Status](https://travis-ci.org/enocom/ruby_life.png)](https://travis-ci.org/enocom/ruby_life)
 
 
