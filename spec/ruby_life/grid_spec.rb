@@ -7,6 +7,10 @@ describe RubyLife::Grid do
     expect(grid.state.length).to eq 9
   end
 
+  it 'initializes separate instances of cells' do
+    expect(grid[0, 0].object_id).not_to eq(grid[0, 1].object_id)
+  end
+
   it 'can retrieve cells from the grid' do
     grid = RubyLife::Grid.new(3, state: [:dead, :dead, :dead,
                                          :dead, :alive, :dead,

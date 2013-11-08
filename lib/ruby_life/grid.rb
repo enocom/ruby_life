@@ -5,11 +5,11 @@ module RubyLife
     def initialize(size, state: nil)
       @size = size
       if state
-        raise BadInitialState unless size_matches_state?(size, state)
+        raise BadInitialState unless size_matches_state?(@size, state)
 
         @storage = state.map { |status| Cell.new(status) }
       else
-        @storage = Array.new(@size * @size, Cell.new)
+        @storage = number_of_cells(@size).times.map { Cell.new }
       end
     end
 
@@ -89,11 +89,11 @@ module RubyLife
     end
 
     def last_row?(index)
-      index >= (size * size - size)
+      index >= (number_of_cells(size) - size)
     end
 
     def size_matches_state?(size, state)
-      (size * size) == state.length
+      number_of_cells(size) == state.length
     end
 
     def above(index)
@@ -102,6 +102,10 @@ module RubyLife
 
     def below(index)
       index + size
+    end
+
+    def number_of_cells(size)
+      size * size
     end
   end
 end
