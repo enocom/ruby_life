@@ -134,5 +134,37 @@ describe RubyLife::Grid do
                                 :alive, :alive]
     end
   end
+
+  context 'big grids' do
+    specify 'big grids respect all four rules' do
+      big_grid = RubyLife::Grid.new(5, state: [
+        :alive, :alive, :alive, :alive, :alive,
+        :alive, :alive, :alive, :alive, :alive,
+        :alive, :alive, :alive, :alive, :alive,
+        :alive, :alive, :alive, :alive, :alive,
+        :alive, :alive, :alive, :alive, :alive
+      ])
+
+      big_grid.generate!
+
+      expect(big_grid.state).to eq [
+        :alive, :dead, :dead, :dead, :alive,
+        :dead,  :dead, :dead, :dead, :dead,
+        :dead,  :dead, :dead, :dead, :dead,
+        :dead,  :dead, :dead, :dead, :dead,
+        :alive, :dead, :dead, :dead, :alive
+      ]
+
+      big_grid.generate!
+
+      expect(big_grid.state).to eq [
+        :dead,  :dead, :dead, :dead, :dead,
+        :dead,  :dead, :dead, :dead, :dead,
+        :dead,  :dead, :dead, :dead, :dead,
+        :dead,  :dead, :dead, :dead, :dead,
+        :dead,  :dead, :dead, :dead, :dead
+      ]
+    end
+  end
 end
 
