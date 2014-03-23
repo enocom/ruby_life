@@ -69,7 +69,7 @@ describe RubyLife::Grid do
   context 'printing the grid' do
     it 'renders the live and dead cells' do
       grid = RubyLife::Grid.new(2, state: [:dead, :alive, :alive, :dead])
-      expected_grid =" . o\n o .\n"
+      expected_grid ="   o\n o  \n"
       expect(grid.to_s).to eq expected_grid
     end
   end

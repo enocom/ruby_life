@@ -23,7 +23,7 @@ module RubyLife
     end
 
     def to_s
-      alive? ? "o" : "."
+      alive? ? "o" : " "
     end
   end
 end
