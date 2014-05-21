@@ -1,6 +1,0 @@
-#!/usr/bin/env ruby
-
-require 'ruby_life'
-trap("INT") { exit }
-RubyLife::Game.new.run
-
